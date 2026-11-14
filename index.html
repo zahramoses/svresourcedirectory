@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What Do I Do Now, Hamilton</title>
+<meta name="description" content="A guided resource for McMaster students in Hamilton, Ontario: medical care, counselling, legal options and next steps after sexual violence.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1B5E63">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231B5E63'/%3E%3Cpath d='M16 26s-8-6.6-8-12.5a8 8 0 1 1 16 0C24 19.4 16 26 16 26z' fill='none' stroke='white' stroke-width='2.4' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='13.5' r='3' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky safety bar, then a guided path (urgent options, "I have been…" and "I need help…" choices) feeding one filtered list of resources with consistent symbols. */
+:root{
+  --bg:#F4F7F7; --surface:#FFFFFF; --fg:#14262B; --muted:#4A5F64; --line:#D3DEDF;
+  --accent:#1B5E63; --accent-fg:#FFFFFF; --accent-soft:#DFEDEE;
+  --alert:#A3261F; --alert-fg:#FFFFFF; --focus:#0B57D0;
+  --font-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --font-body:"Public Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1B1E; --surface:#16272B; --fg:#E6EFF0; --muted:#9DB3B7; --line:#2A3F44;
+    --accent:#6FC3C9; --accent-fg:#0F1B1E; --accent-soft:#1B3236;
+    --alert:#E0645C; --alert-fg:#1A0807; --focus:#8AB4F8; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1B1E; --surface:#16272B; --fg:#E6EFF0; --muted:#9DB3B7; --line:#2A3F44;
+  --accent:#6FC3C9; --accent-fg:#0F1B1E; --accent-soft:#1B3236;
+  --alert:#E0645C; --alert-fg:#1A0807; --focus:#8AB4F8; color-scheme:dark;
+}
+html{color-scheme:light;padding-block:env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--fg); font-family:var(--font-body); font-size:16px; line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 48px;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:10}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.4rem);font-weight:700;letter-spacing:-.015em}
+h2{font-size:1.6rem;font-weight:600}
+h3{font-size:1.15rem;font-weight:600}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:44px;padding:.55rem 1rem;
+  border-radius:8px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-fg);
+  font:600 1rem var(--font-body);text-decoration:none;cursor:pointer;
+}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.alert{background:var(--alert);border-color:var(--alert);color:var(--alert-fg)}
+.btn.small{min-height:36px;padding:.25rem .7rem;font-size:.9rem}
+svg.ic{width:1.15em;height:1.15em;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.2em}
+
+/* safety bar */
+.safety{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);
+  margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));
+}
+.safety .wrap{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding-block:.6rem;flex-wrap:wrap}
+.safety p{margin:0;font-size:.9rem;color:var(--muted);min-width:0}
+.safety strong{color:var(--fg)}
+
+/* hero */
+.hero{padding-block:2.5rem 1.5rem;display:grid;gap:1rem}
+.hero p{max-width:60ch;margin:0;font-size:1.1rem}
+.hero .kicker{font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* right now */
+.now{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-block:1rem 2.5rem}
+.now-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.1rem;display:grid;gap:.6rem;align-content:start;min-width:0}
+.now-card.primary{border:2px solid var(--accent)}
+.now-card .big{font:700 1.7rem var(--font-display);letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.now-card p{margin:0;color:var(--muted);font-size:.95rem}
+.now-card .row{display:flex;gap:8px;flex-wrap:wrap}
+.now-card .kind{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:.4rem}
+
+/* guide */
+.guide{display:grid;gap:1.4rem;margin-bottom:2rem}
+.q{display:grid;gap:.6rem}
+.q h2{font-size:1.35rem}
+.q .hint{margin:0;color:var(--muted);font-size:.95rem}
+.choices{display:flex;flex-wrap:wrap;gap:10px}
+.choice{
+  min-height:48px;padding:.5rem 1.1rem;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--fg);
+  font:600 1rem var(--font-body);cursor:pointer;text-align:left;
+}
+.choice[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--accent-fg)}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;font-size:.9rem;color:var(--muted);align-items:center;padding:.8rem 1rem;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.legend span{display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.legend b{color:var(--fg);font-weight:600}
+.sub{display:flex;flex-wrap:wrap;gap:1rem 2rem}
+.sub .grp{display:grid;gap:.4rem}
+.sub .grp>span{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:40px;padding:.3rem .9rem;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:500 .95rem var(--font-body);cursor:pointer;display:inline-flex;align-items:center;gap:.4rem}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+
+/* results */
+.result-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.8rem}
+.count{color:var(--muted);font-size:.95rem;margin:0}
+.path{background:var(--accent-soft);border-radius:12px;padding:1.2rem;display:grid;gap:.7rem;margin-bottom:1.2rem}
+.path p{margin:0;max-width:70ch}
+.path h3{font-size:1.05rem}
+.path ul{margin:0;padding-left:1.2rem;display:grid;gap:.4rem;max-width:70ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,310px),1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.1rem;display:grid;gap:.7rem;align-content:start;min-width:0}
+.card .org{margin:0;color:var(--muted);font-size:.88rem}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:600;letter-spacing:.03em;padding:.2rem .5rem;border-radius:6px;background:var(--accent-soft);color:var(--accent)}
+.badge.t247{background:var(--accent);color:var(--accent-fg)}
+.card p{margin:0}
+dl.facts{display:grid;grid-template-columns:auto 1fr;gap:.2rem .8rem;margin:0;font-size:.93rem}
+dl.facts dt{color:var(--muted)}
+dl.facts dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.contacts{display:grid;gap:8px}
+.phone{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.phone a.num{font-weight:600;font-variant-numeric:tabular-nums;text-decoration:none;border-bottom:1px solid currentColor}
+.phone .lbl{color:var(--muted);font-size:.85rem}
+.card .more{font-size:.93rem}
+.empty{padding:2rem;border:1px dashed var(--line);border-radius:12px;text-align:center;color:var(--muted)}
+.card.flash{outline:3px solid var(--accent);outline-offset:3px}
+
+/* good to know */
+section.block{margin-top:3rem;display:grid;gap:1rem}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.2rem 1rem}
+summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:600}
+details p{margin:.2rem 0 1rem;max-width:68ch}
+footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;display:grid;gap:.5rem}
+footer p{margin:0;max-width:72ch}
+
+/* quick exit cover */
+#cover{position:fixed;inset:0;background:#EEF1F2;z-index:1000;display:none;align-items:flex-end;justify-content:flex-end;padding:16px}
+#cover.on{display:flex}
+#cover button{background:none;border:0;color:#8a9499;font:.8rem var(--font-body);cursor:pointer;padding:.5rem}
+@media (prefers-reduced-motion:no-preference){.btn,.chip,.choice{transition:background .15s,color .15s,border-color .15s}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-inperson" viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></symbol>
+  <symbol id="i-virtual" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-mcmaster" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/></symbol>
+  <symbol id="i-mohawk" viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13z"/><path d="M10 21v-6h4v6"/></symbol>
+  <symbol id="i-child" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M12 14v4"/><path d="M10.5 21l1.5-3 1.5 3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+</svg>
+
+<div class="safety" role="region" aria-label="Safety">
+  <div class="wrap">
+    <p><strong>Safety first.</strong> Using a shared device? Open this in a private window. Quick exit does not clear your history.</p>
+    <button class="btn alert" id="quick-exit" type="button" aria-label="Quick exit: hide this page now. Press Escape twice also works.">Quick exit (Esc Esc)</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <header class="hero">
+    <span class="kicker">A resource for McMaster students · Hamilton, Ontario</span>
+    <h1>What Do I Do Now, Hamilton</h1>
+    <p>It's hard to sort through all of the resources and find help. Start with what you need right now, or tell us where you are and we'll narrow it down. You don't have to report anything to get support, and nothing here has a deadline.</p>
+  </header>
+
+  <section class="now" aria-label="If you need help right now">
+    <div class="now-card primary">
+      <span class="kind"><svg class="ic"><use href="#i-inperson"/></svg> I need medical attention</span>
+      <h2 style="font-size:1.15rem">Go to an emergency department, any time</h2>
+      <p>Ask for the sexual assault nurse examiner (SANE). They can treat injuries, collect evidence if you want it, and talk through your options. The hospital does not report to the police without your permission.</p>
+      <div class="row"><a class="btn" href="#hhs-sadv" data-goto="hhs-sadv">Hospital details</a></div>
+    </div>
+    <div class="now-card">
+      <span class="kind"><svg class="ic"><use href="#i-virtual"/></svg> I want to talk to someone</span>
+      <span class="big">905-525-4162</span>
+      <p>SACHA 24-hour support line. Confidential, any gender, for survivors and the people who support them.</p>
+      <div class="row">
+        <a class="btn" href="tel:+19055254162">Call</a>
+        <button class="btn ghost copy" type="button" data-num="905-525-4162">Copy number</button>
+      </div>
+    </div>
+    <div class="now-card">
+      <span class="kind"><svg class="ic"><use href="#i-clock"/></svg> Someone is in danger</span>
+      <span class="big">911</span>
+      <p>On the McMaster campus you can also reach Campus Safety at 905-522-4135, 24 hours, or dial 88 from a campus phone.</p>
+      <div class="row"><a class="btn alert" href="tel:911">Call 911</a><a class="btn ghost" href="tel:+19055224135">Campus Safety</a></div>
+    </div>
+  </section>
+
+  <section class="guide" id="directory" aria-labelledby="guide-title">
+    <h2 id="guide-title" style="font-size:1.9rem">Find your way</h2>
+
+    <div class="q">
+      <h2>I have been…</h2>
+      <div class="choices" id="roles" role="group" aria-label="I have been"></div>
+    </div>
+
+    <div class="q">
+      <h2>I need help…</h2>
+      <div class="choices" id="needs" role="group" aria-label="I need help"></div>
+    </div>
+
+    <div class="q">
+      <h2 style="font-size:1.1rem">Narrow it down (optional)</h2>
+      <div class="sub">
+        <div class="grp"><span>How you reach it</span><div class="chips" id="formats" role="group" aria-label="How you reach it"></div></div>
+        <div class="grp"><span>Who it's for</span><div class="chips" id="scopes" role="group" aria-label="Who it is for"></div></div>
+      </div>
+    </div>
+
+    <div class="legend" aria-label="Symbol key">
+      <span><svg class="ic"><use href="#i-mcmaster"/></svg><b>McMaster</b> on campus</span>
+      <span><svg class="ic"><use href="#i-mohawk"/></svg><b>Mohawk College</b></span>
+      <span><svg class="ic"><use href="#i-child"/></svg><b>Children and youth</b></span>
+      <span><svg class="ic"><use href="#i-inperson"/></svg><b>In person</b></span>
+      <span><svg class="ic"><use href="#i-virtual"/></svg><b>Phone or online</b></span>
+      <span><svg class="ic"><use href="#i-clock"/></svg><b>Open 24 hours</b></span>
+    </div>
+  </section>
+
+  <section aria-labelledby="res-title">
+    <div class="result-head">
+      <h2 id="res-title">Resources for you</h2>
+      <p class="count" id="count" aria-live="polite"></p>
+      <button class="btn ghost small" id="clear" type="button">Clear choices</button>
+    </div>
+    <div id="path"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="block" aria-labelledby="know-title">
+    <h2 id="know-title">Good to know</h2>
+    <details>
+      <summary>Do I have to report to get help?</summary>
+      <p>No. SACHA, the hospital care centres and the campus offices below can support you without a police or college report. Reporting is your decision, and you can choose to report later.</p>
+    </details>
+    <details>
+      <summary>What happens at the hospital care centre?</summary>
+      <p>You ask for the sexual assault nurse examiner (SANE) in the emergency department. The centre can provide immediate care, collect forensic evidence, take forensic photographs, help with safety planning, and connect you to follow-up care and counselling. Hospital staff do not report to the police without your permission. Charts for this care are kept separate from your other health records.</p>
+    </details>
+    <details>
+      <summary>Is what I tell McMaster confidential?</summary>
+      <p>McMaster protects confidentiality as far as its legal obligations allow. Information can be shared when it is needed to address a safety risk, such as risk of harm to yourself or others, or when the law requires it. Ask the office what its limits are before you share details. SACHA's support line is off campus and open at all hours.</p>
+    </details>
+    <details>
+      <summary>Can I report to the police later?</summary>
+      <p>Hamilton Police say there is no statute of limitations on sexual assault. Past, non-emergency assaults can be reported online, and a trained detective contacts you within 7 days. You can also call the non-emergency line or go to a station.</p>
+    </details>
+  </section>
+
+  <footer>
+    <p><strong>Details were checked against official sources on November 14, 2026.</strong> Phone numbers, hours and rooms change, so confirm before you travel. Where official pages disagree, the entry gives the number from the organization's own contact page.</p>
+    <p>This directory is not an emergency service and does not replace legal or professional advice. Call 911 if you are in immediate danger.</p>
+  </footer>
+</main>
+
+<div id="cover" aria-hidden="true"><button type="button" id="back">Return</button></div>
+
+<script>
+var TITLE = "What Do I Do Now, Hamilton";
+var ROLES = [
+  {key:"victim", label:"A victim or survivor"},
+  {key:"witness", label:"A witness"},
+  {key:"harm", label:"Someone who caused harm"},
+  {key:"told", label:"Someone who was told"}
+];
+var NEEDS = [
+  {key:"emotional", label:"Personally or emotionally"},
+  {key:"legal", label:"Legally"},
+  {key:"steps", label:"With next steps"}
+];
+var FORMATS = [
+  {key:"any", label:"Any"},
+  {key:"inperson", label:"In person", icon:"inperson"},
+  {key:"virtual", label:"Phone or online", icon:"virtual"}
+];
+var SCOPES = [
+  {key:"any", label:"Any"},
+  {key:"mcmaster", label:"McMaster", icon:"mcmaster"},
+  {key:"mohawk", label:"Mohawk", icon:"mohawk"},
+  {key:"child", label:"Children and youth", icon:"child"}
+];
+var ALL = ["victim","witness","harm","told"];
+
+var GUIDE = {
+  victim:{
+    intro:"What happened is not your fault, and you decide what happens next.",
+    emotional:"You can talk to someone confidentially at any hour, or book counselling when you're ready.",
+    legal:"Reporting to the police or the university is your choice and can wait. You can also get free legal advice first, without reporting.",
+    steps:["If you need medical care, go to an emergency department and ask for the sexual assault nurse examiner (SANE). Evidence can be collected without you deciding to report.",
+           "Talk through your options with a confidential support worker (SACHA, any hour) or McMaster's SVPRO.",
+           "Ask SVPRO about academic accommodations and safety planning.",
+           "Decide about reporting when you're ready. There is no time limit with the police or under McMaster's policy."]
+  },
+  witness:{
+    intro:"You saw something, or you were nearby. You can act without taking over.",
+    emotional:"Seeing or hearing about violence can affect you too. Counselling and crisis lines are open to you.",
+    legal:"If it is happening now, call 911. Afterwards you can use the police non-emergency line. McMaster employees must report workplace sexual violence to a supervisor or an intake office. McMaster's policy sets no separate mandatory duty for students.",
+    steps:["If someone is in danger now, call 911 or McMaster Campus Safety.",
+           "If it is safe, check in with the person privately. Offer help and let them choose what to do.",
+           "Contact SVPRO for advice on how to respond. McMaster encourages anyone who receives a disclosure to reach out.",
+           "Look after yourself. The Student Wellness Centre and crisis lines are open to you."]
+  },
+  harm:{
+    intro:"Support and legal advice are open to you. Taking responsibility for harm matters, and so does knowing your rights in any process.",
+    emotional:"Shame, fear and panic are common. The Student Wellness Centre and the crisis lines below are open to you.",
+    legal:"McMaster's policy lets a person named in a complaint get support from the SVPRO director, learn the case against them, and bring an advisor, a support person or a lawyer at their own cost. For legal advice, see the Hamilton Community Legal Clinic and the Law Society Referral Service. If you have been told not to contact someone, follow that instruction.",
+    steps:["If you received a notice or a complaint, contact SVPRO to learn how the process works.",
+           "Consider getting legal advice early, before you give any statement.",
+           "Follow any no-contact rules or interim measures. McMaster states that interim measures are not evidence of guilt or innocence.",
+           "Get support for yourself: counselling, and 9-8-8 or COAST if you are in crisis."]
+  },
+  told:{
+    intro:"Someone trusted you with this. You don't need to have all the answers.",
+    emotional:"Supporting someone can be heavy. You can call the SACHA line for yourself too, and the Student Wellness Centre is open to you.",
+    legal:"Reporting is their decision, not yours. If they want legal advice first, free confidential advice is available to survivors 16 and over.",
+    steps:["Listen without questioning, and tell them you believe them.",
+           "Let them decide what happens next. Share the options and don't choose for them.",
+           "Offer to go with them to the hospital or a support appointment. SACHA can organize accompaniment.",
+           "Contact SVPRO or SACHA for guidance on how to support them."]
+  }
+};
+
+var DATA = [
+  {id:"sacha-line", name:"SACHA 24-hour support line", org:"Sexual Assault Centre Hamilton and Area (SACHA)",
+   roles:["victim","witness","told"], needs:["emotional","steps"], modes:["virtual"], scope:[], h24:true,
+   who:"Anyone 16 and older who has experienced sexual violence, at any point in their life, and their loved ones", when:"24 hours, every day",
+   phones:[{label:"Support line",num:"905-525-4162"}],
+   address:"75 MacNab St S, 3rd floor, Hamilton L8P 3C1",
+   summary:"Confidential, non-judgmental support at no cost. Can organize accompaniment to the hospital or the police. Open to all genders, including friends and family seeking information.",
+   link:"https://sacha.ca/services/24-hour-support-line", linkText:"sacha.ca"},
+  {id:"hhs-sadv", name:"Sexual Assault / Domestic Violence Care Centre", org:"Hamilton Health Sciences: Juravinski and Hamilton General",
+   roles:["victim","told"], needs:["steps","emotional"], modes:["inperson"], scope:[], h24:true,
+   who:"Ages 13 and over", when:"Emergency departments, 24 hours",
+   phones:[{label:"Follow-up care and counselling referrals",num:"905-521-2100 ext. 73557"}],
+   address:"Juravinski, 711 Concession St · Hamilton General, 237 Barton St E",
+   summary:"Go to the emergency department and ask for the sexual assault nurse examiner (SANE). Care includes forensic evidence collection and photography, safety planning, follow-up medical care and counselling. Hospital staff do not report to the police without your permission.",
+   link:"https://hamiltonhealthsciences.ca/areas-of-care/emergency-care/sexual-assault-domestic-violence", linkText:"hamiltonhealthsciences.ca"},
+  {id:"hhs-kids", name:"Sexual Assault / Domestic Violence Care Centre", org:"McMaster Children's Hospital",
+   roles:["victim","told"], needs:["steps","emotional"], modes:["inperson"], scope:["child"], h24:true,
+   who:"Children and youth 17 and under", when:"Emergency department, 24 hours",
+   phones:[{label:"Follow-up care and counselling referrals",num:"905-521-2100 ext. 73557"}],
+   address:"1200 Main St W, Hamilton L8N 3Z5",
+   summary:"The same specialized nurse-examiner care, for people 17 and under. Ask for the sexual assault nurse examiner (SANE) at the emergency department.",
+   link:"https://hamiltonhealthsciences.ca/areas-of-care/emergency-care/sexual-assault-domestic-violence", linkText:"hamiltonhealthsciences.ca"},
+  {id:"mac-svpro", name:"Sexual Violence Prevention and Response Office (SVPRO)", org:"McMaster University",
+   roles:ALL, needs:["steps","legal","emotional"], modes:["inperson","virtual"], scope:["mcmaster"], h24:false,
+   who:"McMaster students, staff and faculty, including past community members", when:"Business hours (not 24-hour)",
+   phones:[{label:"General inquiries",num:"905-525-9140 ext. 27581"}], email:"svpro@mcmaster.ca",
+   address:"University Hall 109",
+   summary:"Consultation, support and case management by phone, video or in person. A case manager can help with counselling options, academic accommodations and safety planning, even when a formal complaint isn't possible. The policy has no time limit for complaints. A person named in a complaint is also supported here. You don't need to give details to book a meeting.",
+   link:"https://svpro.mcmaster.ca/response/getting-support/", linkText:"svpro.mcmaster.ca"},
+  {id:"mac-safety", name:"Campus Safety", org:"McMaster University",
+   roles:["victim","witness","told"], needs:["steps"], modes:["inperson","virtual"], scope:["mcmaster"], h24:true,
+   who:"Anyone on campus", when:"24 hours, every day",
+   phones:[{label:"Campus Safety",num:"905-522-4135"}],
+   summary:"For urgent or safety concerns on campus. From a campus phone, dial 88. For emergencies off campus, call 911."},
+  {id:"mac-sscm", name:"Student Support and Case Management", org:"McMaster University, Student Affairs",
+   roles:["victim","witness","harm","told"], needs:["steps"], modes:["inperson","virtual"], scope:["mcmaster"], h24:false,
+   who:"McMaster students", when:"Monday to Friday, 9:00 am to 4:30 pm, by appointment",
+   phones:[{label:"Phone",num:"905-525-9140 ext. 20220"}], email:"scm@mcmaster.ca",
+   address:"Student Affairs, 1280 Main St W",
+   summary:"Case managers work with students who need help navigating a difficult situation. Call or email to ask how they can help with yours."},
+  {id:"mac-swc", name:"Student Wellness Centre", org:"McMaster University",
+   roles:ALL, needs:["emotional"], modes:["inperson"], scope:["mcmaster"], h24:false,
+   who:"McMaster students", when:"Business hours",
+   phones:[{label:"Phone",num:"905-525-9140 ext. 27700"}], email:"wellness@mcmaster.ca",
+   address:"Peter George Centre for Living and Learning, room 210 (check wellness.mcmaster.ca for the current location)",
+   summary:"Counselling, psychiatry, medical care and sexual health services. Counselling starts with a short consultation with a counsellor.",
+   link:"https://wellness.mcmaster.ca", linkText:"wellness.mcmaster.ca"},
+  {id:"mac-msap", name:"McMaster Student Assistance Program", org:"MSU insurance plan",
+   roles:ALL, needs:["emotional"], modes:["virtual"], scope:["mcmaster"], h24:true,
+   who:"McMaster undergraduate students", when:"24 hours",
+   phones:[{label:"24-hour counselling",num:"1-877-234-5327"}],
+   summary:"Round-the-clock counselling covered by the MSU insurance plan, useful when campus offices are closed.",
+   link:"https://mentalhealthstrategy.mcmaster.ca/resources/", linkText:"mentalhealthstrategy.mcmaster.ca"},
+  {id:"mac-indigenous", name:"Indigenous Student Services", org:"McMaster University",
+   roles:["victim","told"], needs:["emotional"], modes:["inperson","virtual"], scope:["mcmaster"], h24:false,
+   who:"Indigenous students at McMaster", when:"Business hours",
+   phones:[{label:"Phone",num:"905-525-9140 ext. 27426"}], email:"indigenous.counsellor@mcmaster.ca",
+   address:"L.R. Wilson Hall 1021",
+   summary:"General student support with an Indigenous counsellor. This office is not specific to sexual violence.",
+   link:"https://scm.mcmaster.ca/the-code/online-learning-resources/", linkText:"McMaster resource list"},
+
+  {id:"sacha-counselling", name:"SACHA counselling", org:"Sexual Assault Centre Hamilton and Area (SACHA)",
+   roles:["victim"], needs:["emotional"], modes:["inperson"], scope:[], h24:false,
+   who:"People 16 and older who have experienced sexual violence", when:"Office hours; call to start",
+   phones:[{label:"Office",num:"905-525-4573"},{label:"TTY",num:"905-525-4592"}],
+   address:"75 MacNab St S, 3rd floor, Hamilton L8P 3C1",
+   summary:"Counselling and emotional support from a sexual assault centre. SACHA also runs services for men, which start with a phone intake appointment.",
+   link:"https://sacha.ca/services/counselling", linkText:"sacha.ca"},
+  {id:"hps", name:"Reporting a sexual assault to police", org:"Hamilton Police Service",
+   roles:["victim","witness","told"], needs:["legal","steps"], modes:["inperson","virtual"], scope:[], h24:false,
+   who:"Anyone", when:"911 for emergencies; phone lines as listed",
+   phones:[{label:"Emergency",num:"911"},{label:"Non-emergency",num:"905-546-4925"},{label:"Sexual Assault Unit (non-emergency line)",num:"905-540-5553"}],
+   summary:"You can call, visit a station, or report a past, non-emergency assault online. A specially trained detective contacts you within 7 days of an online report. There is no time limit for reporting. Online reports are not for emergencies or for an assault that just happened.",
+   link:"https://hamiltonpolice.on.ca/how-to/report-sexual-assault", linkText:"hamiltonpolice.on.ca"},
+  {id:"hps-vs", name:"Victim Services Branch", org:"Hamilton Police Service",
+   roles:["victim","witness","told"], needs:["emotional","steps"], modes:["virtual"], scope:[], h24:true,
+   who:"Survivors of crime and trauma in the City of Hamilton", when:"24 hours, every day",
+   phones:[{label:"Victim Services",num:"905-246-4904"}],
+   summary:"On-scene crisis intervention for survivors of crime and trauma, including sexual assault, and help finding the right service."},
+  {id:"ila", name:"Independent Legal Advice for survivors of sexual assault", org:"Ontario Ministry of the Attorney General, delivered by the Barbra Schlifer Commemorative Clinic",
+   roles:["victim","told"], needs:["legal"], modes:["virtual"], scope:[], h24:false,
+   who:"Survivors 16 and older who live in Ontario or were assaulted in Ontario", when:"Toll-free message line, 24 hours",
+   phones:[{label:"Toll-free",num:"1-855-226-3904"}],
+   summary:"Free, confidential advice from a lawyer by phone or video to help you understand your options. This is advice only, not legal representation. There is no time limit and no income test. Ask intake how many hours you qualify for.",
+   link:"https://www.ontario.ca/page/independent-legal-advice-program", linkText:"ontario.ca"},
+  {id:"vsl", name:"Victim Support Line", org:"Ontario Ministry of the Attorney General",
+   roles:["victim","witness","told"], needs:["legal","steps"], modes:["virtual"], scope:[], h24:true,
+   who:"Victims of crime and their families, across Ontario", when:"24 hours, every day",
+   phones:[{label:"Toll-free",num:"1-888-579-2888"}],
+   summary:"Multilingual information and referrals to counselling, financial assistance and other supports.",
+   link:"https://www.ontario.ca/page/victim-notification-services", linkText:"ontario.ca"},
+  {id:"hclc", name:"Hamilton Community Legal Clinic", org:"Free legal services",
+   roles:ALL, needs:["legal"], modes:["inperson","virtual"], scope:[], h24:false,
+   who:"People who need free or low-cost legal services", when:"Call to ask about hours and intake",
+   phones:[{label:"Phone",num:"905-527-4572"}],
+   address:"Landmark Place, 100 Main St E, Suite 203, Hamilton L8N 3W4",
+   summary:"Free legal help for eligible people, including criminal law, family law and human rights. Useful if you are involved in a complaint on either side.",
+   link:"https://hamiltonjustice.ca/en/", linkText:"hamiltonjustice.ca"},
+  {id:"lso", name:"Law Society Referral Service", org:"Law Society of Ontario",
+   roles:ALL, needs:["legal"], modes:["virtual"], scope:[], h24:false,
+   who:"Anyone in Ontario looking for a lawyer or paralegal", when:"Monday to Friday, 9 am to 5 pm",
+   phones:[{label:"Toll-free",num:"1-800-668-7380"},{label:"Toronto",num:"416-947-3300"}],
+   summary:"Matches you with a lawyer or paralegal for your type of case and location. The referral includes a free 30-minute consultation. Further work is billed at the lawyer's regular fee.",
+   link:"https://www.lso.ca", linkText:"lso.ca"},
+
+  {id:"moh-srro", name:"Student Rights and Responsibilities Office (SRRO)", org:"Mohawk College",
+   roles:ALL, needs:["steps","legal"], modes:["inperson","virtual"], scope:["mohawk"], h24:false,
+   who:"Mohawk students", when:"Business hours",
+   phones:[{label:"Phone",num:"365-226-0594"},{label:"Alternate",num:"905-575-1212 ext. 2181"}], email:"SV-GBVSupport@mohawkcollege.ca",
+   address:"Fennell Campus, The Square (room C102)",
+   summary:"Information about your options after sexualized violence, whenever and wherever it happened. Help with safety planning and with deciding whether to make a report. Also supports students who are named in a complaint. What you share is confidential, and your consent is required before it is shared for referrals. Making a report means you can no longer stay anonymous.",
+   link:"https://www.mohawkcollege.ca/sexual-assault-and-sexualized-violence-support", linkText:"mohawkcollege.ca"},
+  {id:"moh-counselling", name:"Counselling Services", org:"Mohawk College",
+   roles:ALL, needs:["emotional"], modes:["inperson","virtual"], scope:["mohawk"], h24:false,
+   who:"Mohawk students in a full-time post-secondary program", when:"Monday to Friday, 8:30 am to 4:30 pm",
+   phones:[{label:"Front desk",num:"905-575-2211"}], email:"counselling@mohawkcollege.ca",
+   summary:"Confidential short-term counselling, emotional support and help with safety planning.",
+   link:"https://www.mohawkcollege.ca/sexual-assault-and-sexualized-violence-support", linkText:"mohawkcollege.ca"},
+  {id:"moh-security", name:"Security Services", org:"Mohawk College",
+   roles:["victim","witness","told"], needs:["steps","legal"], modes:["inperson","virtual"], scope:["mohawk"], h24:true,
+   who:"Anyone on a Mohawk campus", when:"24 hours, every day",
+   phones:[{label:"Security",num:"905-575-2003"}], email:"security@mohawkcollege.ca",
+   summary:"Responds to calls about sexual violence at any hour and takes college reports. On a college phone at Fennell, Stoney Creek or Airport, dial 55.",
+   link:"https://www.mohawkcollege.ca/sexual-assault-and-sexualized-violence-support", linkText:"mohawkcollege.ca"},
+  {id:"moh-res", name:"Residence Life", org:"Mohawk College",
+   roles:["victim","told"], needs:["steps","emotional"], modes:["inperson"], scope:["mohawk"], h24:true,
+   who:"Students living in Mohawk residence", when:"Staff available 24/7",
+   phones:[{label:"Residence",num:"905-385-3200"}], email:"info@mohawkresidence.ca",
+   address:"245 Fennell Ave W, Hamilton L9C 7V7",
+   summary:"Support and resources, safe living arrangements when needed, and referrals to the Counsellor in Residence and other Mohawk supports."},
+
+  {id:"awhl", name:"Assaulted Women's Helpline", org:"Province-wide helpline",
+   roles:["victim","told"], needs:["emotional"], modes:["virtual"], scope:[], h24:true,
+   who:"Women in Ontario who have experienced abuse", when:"24 hours, every day",
+   phones:[{label:"Toll-free",num:"1-866-863-0511"},{label:"TTY",num:"1-866-863-7868"}],
+   summary:"Free, anonymous crisis counselling and referrals to shelters and legal help, in more than 200 languages.",
+   link:"https://www.awhl.org", linkText:"awhl.org"},
+  {id:"male", name:"Support Services for Male Survivors of Sexual Abuse", org:"Province-wide helpline",
+   roles:["victim","told"], needs:["emotional"], modes:["virtual"], scope:[], h24:true,
+   who:"Male survivors of recent or past sexual abuse", when:"24 hours, every day",
+   phones:[{label:"Toll-free",num:"1-866-887-0015"}],
+   summary:"Multilingual crisis and referral service with referrals to counselling, peer support and community services.",
+   link:"https://www.ontario.ca/page/get-help-if-you-are-experiencing-violence", linkText:"ontario.ca"},
+  {id:"t4h", name:"Talk4Healing", org:"Beendigen, with the Ontario Native Women's Association",
+   roles:["victim","told"], needs:["emotional"], modes:["virtual"], scope:[], h24:true,
+   who:"Indigenous women in Ontario", when:"24 hours, every day",
+   phones:[{label:"Call or text",num:"1-855-554-4325"}],
+   summary:"Culturally grounded counselling by Indigenous women, by phone, text or online chat, in 14 languages.",
+   link:"https://www.beendigen.com/programs/talk4healing/", linkText:"beendigen.com"},
+  {id:"femaide", name:"Fem'aide", org:"Francophone helpline",
+   roles:["victim","told"], needs:["emotional"], modes:["virtual"], scope:[], h24:true,
+   who:"French-speaking women in Ontario affected by violence", when:"24 hours, every day",
+   phones:[{label:"Toll-free",num:"1-877-336-2433"}],
+   summary:"Anonymous crisis counselling and referrals in French.",
+   link:"https://www.femaide.ca", linkText:"femaide.ca"},
+  {id:"interval", name:"Interval House of Hamilton", org:"Emergency shelter",
+   roles:["victim"], needs:["steps"], modes:["virtual"], scope:[], h24:true,
+   who:"Women and children seeking safety from abuse", when:"24-hour crisis line",
+   phones:[{label:"Crisis",num:"1-888-387-8881"},{label:"Business",num:"905-387-9959"}],
+   summary:"Listed by Hamilton Health Sciences as a partner for people who need a safe place after domestic violence.",
+   link:"https://hamiltonhealthsciences.ca/areas-of-care/emergency-care/sexual-assault-domestic-violence", linkText:"hamiltonhealthsciences.ca"},
+  {id:"coast", name:"COAST (Crisis Outreach and Support Team)", org:"Hamilton mental health crisis line",
+   roles:ALL, needs:["emotional"], modes:["virtual"], scope:[], h24:true,
+   who:"People in Hamilton in a mental health crisis", when:"24 hours, every day",
+   phones:[{label:"Hamilton",num:"905-972-8338"},{label:"Toll-free",num:"1-844-972-8338"}],
+   summary:"Crisis support if you are overwhelmed, distressed or unsafe, whatever the cause."},
+  {id:"988", name:"9-8-8 Suicide Crisis Helpline", org:"Canada-wide",
+   roles:ALL, needs:["emotional"], modes:["virtual"], scope:[], h24:true,
+   who:"Anyone in Canada", when:"24 hours, every day, call or text",
+   phones:[{label:"Call or text",num:"988"}],
+   summary:"Trauma-informed, bilingual support by phone and text for anyone thinking about suicide or worried about someone else.",
+   link:"https://988.ca", linkText:"988.ca"},
+
+  {id:"khp", name:"Kids Help Phone", org:"Canada-wide",
+   roles:ALL, needs:["emotional"], modes:["virtual"], scope:["child"], h24:true,
+   who:"Children, youth and young adults", when:"24 hours, every day",
+   phones:[{label:"Call",num:"1-800-668-6868"}],
+   summary:"Free mental health support and crisis services. Text CONNECT to 686868.",
+   link:"https://kidshelpphone.ca", linkText:"kidshelpphone.ca"},
+  {id:"saat", name:"Sexual Abuse Assessment and Treatment Program (SAAT)", org:"Lynwood Charlton Centre",
+   roles:["victim","harm"], needs:["emotional"], modes:["inperson"], scope:["child"], h24:false,
+   who:"Children and youth 18 and under who have been sexually victimized, and some who have sexually harmed others", when:"Monday to Friday, 8:30 am to 4:30 pm",
+   phones:[{label:"Office",num:"905-389-1361"}],
+   address:"526 Upper Paradise Rd, Hamilton L9C 5E3",
+   summary:"Free assessment and treatment. Referrals come through child welfare (Access and System Navigation) with confirmation of abuse. Families can call to ask how to apply.",
+   link:"https://www.lynwoodcharlton.ca/counselling-programs/saat", linkText:"lynwoodcharlton.ca"}
+];
+
+var state = {role:null, need:null, format:"any", scope:"any"};
+var el = function(id){ return document.getElementById(id); };
+var ICON = function(n){ return '<svg class="ic" aria-hidden="true"><use href="#i-' + n + '"/></svg>'; };
+
+function telHref(n){
+  if(n === "988" || n === "911") return "tel:" + n;
+  var ext = n.split(" ext. ");
+  var digits = ext[0].replace(/\D/g, "");
+  if(digits.length === 10) digits = "1" + digits;
+  return "tel:+" + digits + (ext[1] ? ",," + ext[1] : "");
+}
+
+function badges(e){
+  var b = [];
+  if(e.h24) b.push('<span class="badge t247">' + ICON("clock") + 'Open 24 hours</span>');
+  if(e.scope.indexOf("mcmaster") > -1) b.push('<span class="badge">' + ICON("mcmaster") + 'McMaster</span>');
+  if(e.scope.indexOf("mohawk") > -1) b.push('<span class="badge">' + ICON("mohawk") + 'Mohawk</span>');
+  if(e.scope.indexOf("child") > -1) b.push('<span class="badge">' + ICON("child") + 'Children and youth</span>');
+  if(e.modes.indexOf("inperson") > -1) b.push('<span class="badge">' + ICON("inperson") + 'In person</span>');
+  if(e.modes.indexOf("virtual") > -1) b.push('<span class="badge">' + ICON("virtual") + 'Phone or online</span>');
+  return b.join("");
+}
+
+function cardHTML(e){
+  var phones = e.phones.map(function(p){
+    return '<div class="phone"><a class="num" href="' + telHref(p.num) + '">' + p.num + '</a>' +
+      '<span class="lbl">' + p.label + '</span>' +
+      '<button class="btn ghost small copy" type="button" data-num="' + p.num + '" aria-label="Copy ' + p.num + '">Copy</button></div>';
+  }).join("");
+  var email = e.email ? '<div class="phone"><span class="num" style="border:0;overflow-wrap:anywhere">' + e.email + '</span><span class="lbl">Email</span></div>' : "";
+  var facts = '<dl class="facts"><dt>For</dt><dd>' + e.who + '</dd><dt>Hours</dt><dd>' + e.when + '</dd>' +
+    (e.address ? '<dt>Where</dt><dd>' + e.address + '</dd>' : '') + '</dl>';
+  var link = e.link ? '<p class="more"><a href="' + e.link + '" target="_blank" rel="noopener">' + e.linkText + '</a></p>' : "";
+  return '<article class="card" id="' + e.id + '"><div><h3>' + e.name + '</h3><p class="org">' + e.org + '</p></div>' +
+    '<div class="badges">' + badges(e) + '</div><p>' + e.summary + '</p>' + facts +
+    '<div class="contacts">' + phones + email + '</div>' + link + '</article>';
+}
+
+function pathHTML(){
+  if(!state.role) return "";
+  var g = GUIDE[state.role], h = '<div class="path"><p><strong>' + g.intro + '</strong></p>';
+  if(state.need === "emotional") h += '<p>' + g.emotional + '</p>';
+  else if(state.need === "legal") h += '<p>' + g.legal + '</p>';
+  else {
+    h += '<h3>Possible next steps, in any order</h3><ul>' + g.steps.map(function(s){ return '<li>' + s + '</li>'; }).join("") + '</ul>';
+  }
+  return h + '</div>';
+}
+
+function render(){
+  var list = DATA.filter(function(e){
+    if(state.role && e.roles.indexOf(state.role) === -1) return false;
+    if(state.need && e.needs.indexOf(state.need) === -1) return false;
+    if(state.format !== "any" && e.modes.indexOf(state.format) === -1) return false;
+    if(state.scope !== "any" && e.scope.indexOf(state.scope) === -1) return false;
+    return true;
+  });
+  el("path").innerHTML = pathHTML();
+  el("grid").innerHTML = list.length ? list.map(cardHTML).join("") :
+    '<div class="empty">Nothing matches that combination. Try "Any" under "Narrow it down", or clear your choices. If you are unsure where to start, call the SACHA support line at 905-525-4162.</div>';
+  el("count").textContent = list.length + (list.length === 1 ? " resource" : " resources");
+  el("clear").hidden = !(state.role || state.need || state.format !== "any" || state.scope !== "any");
+}
+
+function choiceButtons(containerId, items, cls, key, icons){
+  el(containerId).innerHTML = items.map(function(i){
+    var on = (state[key] === i.key) || (state[key] === null && false);
+    return '<button class="' + cls + '" type="button" data-key="' + i.key + '" aria-pressed="' + on + '">' +
+      (i.icon ? ICON(i.icon) : "") + i.label + '</button>';
+  }).join("");
+}
+function paint(){
+  choiceButtons("roles", ROLES, "choice", "role");
+  choiceButtons("needs", NEEDS, "choice", "need");
+  choiceButtons("formats", FORMATS, "chip", "format");
+  choiceButtons("scopes", SCOPES, "chip", "scope");
+  render();
+}
+
+function bind(containerId, key, toggles){
+  el(containerId).addEventListener("click", function(ev){
+    var b = ev.target.closest("button"); if(!b) return;
+    var k = b.dataset.key;
+    state[key] = (toggles && state[key] === k) ? null : k;
+    paint();
+    if(toggles && state[key]) el("res-title").scrollIntoView({behavior:"auto", block:"start"});
+  });
+}
+bind("roles", "role", true);
+bind("needs", "need", true);
+bind("formats", "format", false);
+bind("scopes", "scope", false);
+
+el("clear").addEventListener("click", function(){
+  state = {role:null, need:null, format:"any", scope:"any"}; paint();
+});
+
+document.addEventListener("click", function(ev){
+  var g = ev.target.closest("[data-goto]");
+  if(g){
+    ev.preventDefault();
+    state = {role:null, need:null, format:"any", scope:"any"}; paint();
+    var t = el(g.dataset.goto);
+    if(t){ t.scrollIntoView({behavior:"auto", block:"center"}); t.classList.add("flash"); setTimeout(function(){ t.classList.remove("flash"); }, 2500); }
+    return;
+  }
+  var c = ev.target.closest(".copy");
+  if(c){
+    var n = c.dataset.num, old = c.textContent;
+    var done = function(){ c.textContent = "Copied"; setTimeout(function(){ c.textContent = old; }, 1500); };
+    try {
+      navigator.clipboard.writeText(n).then(done, function(){ c.textContent = n; });
+    } catch(e){ c.textContent = n; }
+  }
+});
+
+/* quick exit */
+var cover = el("cover");
+function quickExit(){
+  cover.classList.add("on"); cover.setAttribute("aria-hidden","false");
+  document.title = "New Tab";
+  try { window.location.replace("https://weather.gc.ca"); } catch(e){}
+}
+function restore(){ cover.classList.remove("on"); cover.setAttribute("aria-hidden","true"); document.title = TITLE; }
+el("quick-exit").addEventListener("click", quickExit);
+el("back").addEventListener("click", restore);
+var lastEsc = 0;
+document.addEventListener("keydown", function(ev){
+  if(ev.key !== "Escape") return;
+  var now = Date.now();
+  if(now - lastEsc < 900){ quickExit(); lastEsc = 0; } else { lastEsc = now; }
+});
+
+paint();
+</script>
+</body>
+</html>
